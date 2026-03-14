@@ -226,9 +226,9 @@ s08  后台任务                [6]     s10  团队协议               [12]
 ## 项目结构
 
 ```
-learn-claude-code/
+learn-claude-code-js/
 |
-|-- agents/                        # Python 参考实现 (s01-s12 + s_full 总纲)
+|-- src/                        # Python 参考实现 (s01-s12 + s_full 总纲)
 |-- docs/{en,zh,ja}/               # 心智模型优先的文档 (3 种语言)
 |-- web/                           # 交互式学习平台 (Next.js)
 |-- skills/                        # s05 的 Skill 文件
@@ -238,66 +238,26 @@ learn-claude-code/
 ## 文档
 
 心智模型优先: 问题、方案、ASCII 图、最小化代码。
-[English](./docs/en/) | [中文](./docs/zh/) | [日本語](./docs/ja/)
+[English](./docs/en/) | [中文](./) | [日本語](./docs/ja/)
 
 | 课程 | 主题 | 格言 |
 |------|------|------|
-| [s01](./docs/zh/s01-the-agent-loop.md) | Agent 循环 | *One loop & Bash is all you need* |
-| [s02](./docs/zh/s02-tool-use.md) | Tool Use | *加一个工具, 只加一个 handler* |
-| [s03](./docs/zh/s03-todo-write.md) | TodoWrite | *没有计划的 agent 走哪算哪* |
-| [s04](./docs/zh/s04-subagent.md) | 子智能体 | *大任务拆小, 每个小任务干净的上下文* |
-| [s05](./docs/zh/s05-skill-loading.md) | Skills | *用到什么知识, 临时加载什么知识* |
-| [s06](./docs/zh/s06-context-compact.md) | Context Compact | *上下文总会满, 要有办法腾地方* |
-| [s07](./docs/zh/s07-task-system.md) | 任务系统 | *大目标要拆成小任务, 排好序, 记在磁盘上* |
-| [s08](./docs/zh/s08-background-tasks.md) | 后台任务 | *慢操作丢后台, agent 继续想下一步* |
-| [s09](./docs/zh/s09-agent-teams.md) | 智能体团队 | *任务太大一个人干不完, 要能分给队友* |
-| [s10](./docs/zh/s10-team-protocols.md) | 团队协议 | *队友之间要有统一的沟通规矩* |
-| [s11](./docs/zh/s11-autonomous-agents.md) | 自治智能体 | *队友自己看看板, 有活就认领* |
-| [s12](./docs/zh/s12-worktree-task-isolation.md) | Worktree + 任务隔离 | *各干各的目录, 互不干扰* |
+| [s01](./s01-the-agent-loop.md) | Agent 循环 | *One loop & Bash is all you need* |
+| [s02](./s02-tool-use.md) | Tool Use | *加一个工具, 只加一个 handler* |
+| [s03](./s03-todo-write.md) | TodoWrite | *没有计划的 agent 走哪算哪* |
+| [s04](./s04-subagent.md) | 子智能体 | *大任务拆小, 每个小任务干净的上下文* |
+| [s05](./s05-skill-loading.md) | Skills | *用到什么知识, 临时加载什么知识* |
+| [s06](./s06-context-compact.md) | Context Compact | *上下文总会满, 要有办法腾地方* |
+| [s07](./s07-task-system.md) | 任务系统 | *大目标要拆成小任务, 排好序, 记在磁盘上* |
+| [s08](./s08-background-tasks.md) | 后台任务 | *慢操作丢后台, agent 继续想下一步* |
+| [s09](./s09-agent-teams.md) | 智能体团队 | *任务太大一个人干不完, 要能分给队友* |
+| [s10](./s10-team-protocols.md) | 团队协议 | *队友之间要有统一的沟通规矩* |
+| [s11](./s11-autonomous-agents.md) | 自治智能体 | *队友自己看看板, 有活就认领* |
+| [s12](./s12-worktree-task-isolation.md) | Worktree + 任务隔离 | *各干各的目录, 互不干扰* |
 
 ## 学完之后 -- 从理解到落地
 
-12 个课程走完, 你已经从内到外理解了 agent 的工作原理。两种方式把知识变成产品:
-
-### Kode Agent CLI -- 开源 Coding Agent CLI
-
-> `npm i -g @shareai-lab/kode`
-
-支持 Skill & LSP, 适配 Windows, 可接 GLM / MiniMax / DeepSeek 等开放模型。装完即用。
-
-GitHub: **[shareAI-lab/Kode-cli](https://github.com/shareAI-lab/Kode-cli)**
-
-### Kode Agent SDK -- 把 Agent 能力嵌入你的应用
-
-官方 Claude Code Agent SDK 底层与完整 CLI 进程通信 -- 每个并发用户 = 一个终端进程。Kode SDK 是独立库, 无 per-user 进程开销, 可嵌入后端、浏览器插件、嵌入式设备等任意运行时。
-
-GitHub: **[shareAI-lab/Kode-agent-sdk](https://github.com/shareAI-lab/Kode-agent-sdk)**
-
----
-
-## 姊妹教程: 从*被动临时会话*到*主动常驻助手*
-
-本仓库教的 agent 属于 **用完即走** 型 -- 开终端、给任务、做完关掉, 下次重开是全新会话。Claude Code 就是这种模式。
-
-但 [OpenClaw](https://github.com/openclaw/openclaw) (小龙虾) 证明了另一种可能: 在同样的 agent core 之上, 加两个机制就能让 agent 从"踹一下动一下"变成"自己隔 30 秒醒一次找活干":
-
-- **心跳 (Heartbeat)** -- 每 30 秒系统给 agent 发一条消息, 让它检查有没有事可做。没事就继续睡, 有事立刻行动。
-- **定时任务 (Cron)** -- agent 可以给自己安排未来要做的事, 到点自动执行。
-
-再加上 IM 多通道路由 (WhatsApp/Telegram/Slack/Discord 等 13+ 平台)、不清空的上下文记忆、Soul 人格系统, agent 就从一个临时工具变成了始终在线的个人 AI 助手。
-
-**[claw0](https://github.com/shareAI-lab/claw0)** 是我们的姊妹教学仓库, 从零拆解这些机制:
-
-```
-claw agent = agent core + heartbeat + cron + IM chat + memory + soul
-```
-
-```
-learn-claude-code                   claw0
-(agent 运行时内核:                   (主动式常驻 AI 助手:
- 循环、工具、规划、                    心跳、定时任务、IM 通道、
- 团队、worktree 隔离)                  记忆、Soul 人格)
-```
+12 个课程走完, 你已经从内到外理解了 agent 的工作原理。
 
 ## 许可证
 
