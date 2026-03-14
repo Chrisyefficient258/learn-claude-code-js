@@ -1,7 +1,10 @@
 # learn-claude-code-js
 
+原python版本：https://github.com/shareAI-lab/learn-claude-code
 
-## fix
+src是按照原agents目录直接迁移过来的。只增加了client.js
+
+## why fix client.js
 
 我的cc用的是中转站https://foxcode.rjj.cc/
 所以，直接用@anthropic-ai/sdk会报403错误。
@@ -52,4 +55,21 @@ curl https://code.newcli.com/claude/aws/v1/messages \
 }
 ```
 
-然后快速mock一个client.js即可
+然后快速mock一个src/client.js即可
+
+## prepare
+
+create src/.env
+
+```
+ANTHROPIC_BASE_URL=https://code.newcli.com/claude/aws/v1
+ANTHROPIC_API_KEY=your key
+MODEL_ID=claude-sonnet-4-6
+ANTHROPIC_API_VERSION=2023-06-01
+```
+
+## run
+
+```sh
+$ npm run s01
+```
