@@ -1,0 +1,5 @@
+node_modules
+src/.env
+src/test_output
+src/package-lock.json
+src/hello.js

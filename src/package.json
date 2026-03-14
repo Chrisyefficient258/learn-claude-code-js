@@ -1,0 +1,29 @@
+{
+  "name": "agents-js",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Node.js implementations of Claude agent patterns",
+  "scripts": {
+    "s01": "node s01_agent_loop.js",
+    "s02": "node s02_tool_use.js",
+    "s03": "node s03_todo_write.js",
+    "s04": "node s04_subagent.js",
+    "s05": "node s05_skill_loading.js",
+    "s06": "node s06_context_compact.js",
+    "s07": "node s07_task_system.js",
+    "s08": "node s08_background_tasks.js",
+    "s09": "node s09_agent_teams.js",
+    "s10": "node s10_team_protocols.js",
+    "s11": "node s11_autonomous_agents.js",
+    "s12": "node s12_worktree_task_isolation.js",
+    "test": "node test-all.js",
+    "test:unit": "node test-unit.js",
+    "all": "npm test && npm run test:unit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.1009.0",
+    "debug": "^4.4.3",
+    "dotenv": "^16.4.5"
+  }
+}
