@@ -104,8 +104,10 @@ def agent_loop(query):
 ## 试一试
 
 ```sh
-cd learn-claude-code
-python agents/s01_agent_loop.py
+cd learn-claude-code-js
+cd src
+npm i
+npm run s01
 ```
 
 试试这些 prompt (英文 prompt 对 LLM 效果更好, 也可以用中文):
