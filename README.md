@@ -212,14 +212,15 @@ async function agentLoop(messages) {
 ## 快速开始
 
 ```sh
-git clone https://github.com/shareAI-lab/learn-claude-code
-cd learn-claude-code
-pip install -r requirements.txt
+git clone https://github.com/i5ting/learn-claude-code-js
+cd learn-claude-code-js
+cd src
+npm i
 cp .env.example .env   # 编辑 .env 填入你的 ANTHROPIC_API_KEY
 
-python agents/s01_agent_loop.py       # 从这里开始
-python agents/s12_worktree_task_isolation.py  # 完整递进终点
-python agents/s_full.py               # 总纲: 全部机制合一
+npm run s01               # 从这里开始
+npm run s01               # 完整递进终点
+npm run all               # 总纲: 全部机制合一
 ```
 
 ### Web 平台
