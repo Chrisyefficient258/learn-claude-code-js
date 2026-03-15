@@ -5,6 +5,7 @@
 - [入门《Claude Code 完全指南：使用方式、技巧与最佳实践》](https://www.cnblogs.com/knqiufan/p/19449849)
 - [进阶《你不知道的 Claude Code：架构、治理与工程实践》](https://x.com/HiTw93/status/2032091246588518683)
 - [原理《learn-claude-code》](https://github.com/shareAI-lab/learn-claude-code)
+- [更多《官方课程》](https://anthropic.skilljar.com/)
 
 
 由于learn-claude-code是python写的，我又是Node.js技术栈，所以搞个learn-claude-code-js版本来学习原理更方便。src是按照原agents目录直接迁移过来的。只增加了client.js。
