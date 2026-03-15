@@ -133,6 +133,8 @@ $ npm run s01
 
 ## 核心模式
 
+python version
+
 ```python
 def agent_loop(messages):
     while True:
@@ -156,6 +158,40 @@ def agent_loop(messages):
                     "content": output,
                 })
         messages.append({"role": "user", "content": results})
+```
+
+js version
+
+```js
+// Agent主循环：持续调用LLM并执行工具
+async function agentLoop(messages) {
+  while (true) {
+    const response = await client.messages.create({
+      model: MODEL,
+      system: SYSTEM,
+      messages,
+      tools: TOOLS,
+      max_tokens: 8000,
+    });
+
+    messages.push({ role: "assistant", content: response.content });
+
+    if (response.stop_reason !== "tool_use") return;
+
+    const results = [];
+    for (const block of response.content) {
+      if (block.type === "tool_use") {
+        const output = runBash(block.input.command);
+        results.push({
+          type: "tool_result",
+          tool_use_id: block.id,
+          content: output,
+        });
+      }
+    }
+    messages.push({ role: "user", content: results });
+  }
+}
 ```
 
 每个课程在这个循环之上叠加一个机制 -- 循环本身始终不变。
